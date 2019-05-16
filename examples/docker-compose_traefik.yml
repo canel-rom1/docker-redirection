@@ -6,15 +6,15 @@ services:
     volumes:
       - ./www:/usr/share/nginx/html:ro
     networks:
-      - wan
+      - traefik_wan
     labels:
       - "traefik.enable=true"
       - "traefik.frontend.rule=Host:localhost"
       - "traefik.port=80"
-      - "traefik.docker.network=wan"
+      - "traefik.docker.network=traefik_wan"
 
 networks:
-  wan:
+  traefik_wan:
     external: true
 
 
