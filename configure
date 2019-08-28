@@ -1,0 +1,22 @@
+#!/bin/bash
+
+OLDDOMAIN=${1:-$OLDDOMAIN}
+NEWDOMAIN=${2:-$NEWDOMAIN}
+
+DCFILE=./docker-compose.yml
+
+usage()
+{
+        echo "Usage: $(basename $0) [OLDDOMAIN] [NEWDOMAIN]"
+}
+
+if [[ "$OLDDOMAIN" == "" || "$NEWDOMAIN" == "" ]]
+then
+        echo "Error: Bad arguments"
+        usage
+        exit 1
+fi
+
+sed -i "s^\(\"traefik\.frontend\.rule=Host:\).*\(\"\)^\1${OLDDOMAIN}\2^" ${DCFILE}
+
+echo "$NEWDOMAIN" "$OLDDOMAIN"
